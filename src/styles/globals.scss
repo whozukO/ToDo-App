@@ -1,0 +1,23 @@
+body {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--page-bg);
+  font-family: var(--font-family-base), sans-serif;
+  font-weight: 400;
+  color: var(--text-primary);
+  line-height: 1.5;
+}
+
+main {
+  flex-grow: 1;
+}
+
+a,
+button,
+label,
+input,
+textarea,
+select,
+svg * {
+  transition-duration: var(--transition-duration);
+}
