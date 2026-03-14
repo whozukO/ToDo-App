@@ -1,10 +1,94 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-js-theme="light">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>ToDo</title>
     <script src="/src/main.js" type="module"></script>
   </head>
-  <body></body>
+  <body>
+    <button
+      class="toggle-theme-button"
+      type="button"
+      aria-label="Toggle theme"
+      data-js-toggle-theme-button
+    ></button>
+    <div class="todo container" data-js-todo>
+      <h1 class="todo__title">My Tasks</h1>
+      <form class="todo__form" data-js-todo-new-task-form>
+        <div class="todo__field field">
+          <label for="new-task" class="field__label visually-hidden">New task</label>
+          <input
+            class="field__input"
+            id="new-task"
+            placeholder="Type your task here.."
+            autocomplete="off"
+            data-js-todo-new-task-input
+          />
+          <button class="button button-primary" type="submit">+ Add</button>
+        </div>
+      </form>
+      <div class="todo__toolbar" data-js-todo-toolbar>
+        <div class="todo__filters filters" data-js-todo-filters>
+          <button
+            class="filters__button"
+            type="button"
+            data-js-todo-filters-button
+          >
+            All
+          </button>
+          <button
+            class="filters__button"
+            type="button"
+            data-js-todo-filters-button
+          >
+            Active
+          </button>
+          <button
+            class="filters__button"
+            type="button"
+            data-js-todo-filters-button
+          >
+            Completed
+          </button>
+        </div>
+        <div class="todo__remaining-tasks" data-js-todo-remaining-task>
+          <span>2</span> tasks left
+        </div>
+      </div>
+      <ul class="todo__tasks-list" data-js-todo-tasks-list>
+        <li class="todo__tasks-list-item task-item" data-js-task-item>
+          <label for="todo-1" class="task-item__label">
+            <input
+              class="task-item__checkbox"
+              id="todo-1"
+              type="checkbox"
+              data-js-task-item-checkbox
+            />
+            <input
+              class="task-item__text"
+              type="text"
+              value="Todo 1"
+              readonly
+              data-js-task-item-input
+            />
+          </label>
+          <div class="task-item__actions" data-js-task-item-actions>
+            <button
+              class="task-item__actions-button"
+              type="button"
+              aria-label="Edit task"
+              data-js-task-item-actions-edit-button
+            ></button>
+            <button
+              class="task-item__actions-button"
+              type="button"
+              aria-label="Delete task"
+              data-js-task-item-actions-delete-button
+            ></button>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </body>
 </html>
