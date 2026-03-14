@@ -1,0 +1,15 @@
+@mixin hover($has-active-effect-on-mobile: true) {
+  @media (any-hover: hover) {
+    &:hover {
+      @content;
+    }
+  }
+
+  @if $has-active-effect-on-mobile {
+    @media (any-hover: none) {
+      &:active {
+        @content;
+      }
+    }
+  }
+}
