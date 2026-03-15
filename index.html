@@ -1,18 +1,110 @@
 <!doctype html>
-<html lang="en" data-js-theme="light">
+<html lang="en" data-js-theme="dark">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ToDo</title>
+    <title>ToDo App</title>
     <script src="/src/main.js" type="module"></script>
   </head>
   <body>
     <button
       class="toggle-theme-button"
       type="button"
+      title="Toggle theme"
       aria-label="Toggle theme"
       data-js-toggle-theme-button
-    ></button>
+    >
+      <span class="toggle-theme-button__moon-icon">
+        <svg
+          width="40"
+          height="40"
+          viewBox="0 0 40 40"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M37.9738 20.9456C37.7864 24.4179 36.5972 27.7616 34.55 30.5724C32.5028 33.3833 29.6852 35.541 26.4379 36.7847C23.1905 38.0284 19.6525 38.3049 16.2514 37.5807C12.8503 36.8565 9.73174 35.1627 7.27276 32.704C4.81377 30.2452 3.11961 27.1269 2.39507 23.7258C1.67053 20.3248 1.94662 16.7867 3.18999 13.5393C4.43335 10.2918 6.59075 7.47401 9.40138 5.42651C12.212 3.379 15.5556 2.18945 19.0278 2.00164C19.8378 1.95764 20.2618 2.92164 19.8318 3.60764C18.3936 5.90874 17.7778 8.62938 18.0848 11.3255C18.3919 14.0217 19.6037 16.5342 21.5225 18.453C23.4413 20.3718 25.9538 21.5836 28.6499 21.8906C31.3461 22.1977 34.0667 21.5819 36.3678 20.1436C37.0558 19.7136 38.0178 20.1356 37.9738 20.9456Z"
+            stroke="black"
+            stroke-width="4"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      </span>
+      <span class="toggle-theme-button__sun-icon">
+        <svg
+          width="48"
+          height="48"
+          viewBox="0 0 48 48"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M24 32C28.4183 32 32 28.4183 32 24C32 19.5817 28.4183 16 24 16C19.5817 16 16 19.5817 16 24C16 28.4183 19.5817 32 24 32Z"
+            stroke="white"
+            stroke-width="4"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M24 4V8"
+            stroke="white"
+            stroke-width="4"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M24 40V44"
+            stroke="white"
+            stroke-width="4"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M9.86011 9.85999L12.6801 12.68"
+            stroke="white"
+            stroke-width="4"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M35.3201 35.3201L38.1401 38.1401"
+            stroke="white"
+            stroke-width="4"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M4 24H8"
+            stroke="white"
+            stroke-width="4"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M40 24H44"
+            stroke="white"
+            stroke-width="4"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M12.6801 35.3201L9.86011 38.1401"
+            stroke="white"
+            stroke-width="4"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M38.1401 9.85999L35.3201 12.68"
+            stroke="white"
+            stroke-width="4"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      </span>
+    </button>
     <div class="todo container" data-js-todo>
       <h1 class="todo__title">My Tasks</h1>
       <form class="todo__form" data-js-todo-new-task-form>
@@ -30,25 +122,9 @@
       </form>
       <div class="todo__toolbar" data-js-todo-toolbar>
         <div class="todo__filters filters" data-js-todo-filters>
-          <button
-            class="filters__button"
-            type="button"
-            data-js-todo-filters-button
-          >
-            All
-          </button>
-          <button
-            class="filters__button"
-            type="button"
-            data-js-todo-filters-button
-          >
-            Active
-          </button>
-          <button
-            class="filters__button"
-            type="button"
-            data-js-todo-filters-button
-          >
+          <button class="filters__button" type="button" data-js-todo-filters-button>All</button>
+          <button class="filters__button" type="button" data-js-todo-filters-button>Active</button>
+          <button class="filters__button" type="button" data-js-todo-filters-button>
             Completed
           </button>
         </div>
