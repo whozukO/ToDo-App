@@ -1,0 +1,42 @@
+@use '@/styles/helpers' as *;
+
+.toggle-theme-button {
+  @include square(48px);
+
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  background-color: transparent;
+  border: none;
+
+  &__moon-icon {
+    display: block;
+    color: var(--color-black);
+    transition-duration: var(--transition-duration);
+
+    @include hover {
+      color: var(--color-gray-300)
+    }
+  }
+
+  &__sun-icon {
+    display: none;
+    color: var(--color-white);
+    transition-duration: var(--transition-duration);
+
+    @include hover {
+      color: var(--color-gray-200);
+    }
+  }
+
+  [data-js-theme='dark'] & {
+    &__sun-icon {
+      display: block;
+    }
+
+    &__moon-icon {
+      display: none;
+    }
+  }
+}
