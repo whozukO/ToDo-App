@@ -1,4 +1,6 @@
 :root {
+  color-scheme: light dark;
+
   // COLORS
   --color-white: #fff;
   --color-black: #000;
@@ -23,22 +25,60 @@
   --font-family-base: 'Lato';
 
   // ANIMATIONS
-  --transition-duration: 0.2s;
+  --transition-duration: 0.25s;
 
-  // light theme
+  // BORDER RADIUS
+  --border-radius-base: 12px;
+
+  // ??
+  --input-height: 59px;
+
+  // --------------- LIGHT THEME ---------------
+  // globals
   --page-bg: var(--color-gray-100);
   --text-primary: var(--color-gray-800);
+
+  // buttons
   --button-primary-bg: var(--color-black);
+  --button-primary-hover-bg: var(--color-gray-800);
+
+  // inputs
   --input-search-bg: var(--color-white);
   --input-search-border: 1px solid var(--color-white);
+  --input-focus-border: 1px solid var(--color-gray-800);
+  --input-color: var(--color-gray-800);
   --input-search-shadow: var(--shadow-card);
+
+  // task-item
+  --task-item-bg: var(--color-white);
+  --task-item-hover-border: 1px solid var(--color-black);
+
+  // checkbox
+  --checkbox-border: 2px solid var(--color-black);
 }
 
+// --------------- DARK THEME ---------------
+
 [data-js-theme='dark'] {
+  // globals
   --page-bg: var(--color-slate-800);
   --text-primary: var(--color-white);
+
+  // buttons
   --button-primary-bg: var(--color-slate-400);
+  --button-primary-hover-bg: var(--color-slate-500);
+
+  // inputs
   --input-search-bg: var(--color-slate-500);
-  --input-search-border: 1px solid var(--color-slate-500);
+  --input-search-border: 1px solid var(--color-slate-400);
+  --input-focus-border: 1px solid var(--color-white);
+  --input-color: var(--color-white);
   --input-search-shadow: none;
+
+  // task-item
+  --task-item-bg: var(--color-slate-700);
+  --task-item-hover-border: 1px solid var(--color-white);
+
+  // checkbox
+  --checkbox-border: 2px solid var(--color-white);
 }
