@@ -1,0 +1,36 @@
+@use '@/styles/helpers' as *;
+
+.filters {
+  display: flex;
+  column-gap: 16px;
+
+  &__button {
+    position: relative;
+    padding: 0;
+    border: none;
+    background-color: transparent;
+    color: var(--color-gray-300);
+
+    @include hover {
+      color: var(--text-primary);
+    }
+
+    &.is-active {
+      color: var(--text-primary);
+      pointer-events: none;
+    }
+
+    &:not(:last-child) {
+      &::after {
+        content: '';
+        position: absolute;
+        right: -9px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 1px;
+        height: 70%;
+        background-color: var(--color-gray-300);
+      }
+    }
+  }
+}
