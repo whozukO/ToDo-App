@@ -43,11 +43,11 @@
   --button-primary-hover-bg: var(--color-gray-800);
 
   // inputs
-  --input-search-bg: var(--color-white);
-  --input-search-border: 1px solid var(--color-white);
+  --input-bg: var(--color-white);
+  --input-border: 1px solid var(--color-white);
   --input-focus-border: 1px solid var(--color-gray-800);
   --input-color: var(--color-gray-800);
-  --input-search-shadow: var(--shadow-card);
+  --input-shadow: var(--shadow-card);
 
   // task-item
   --task-item-bg: var(--color-white);
@@ -69,11 +69,11 @@
   --button-primary-hover-bg: var(--color-slate-500);
 
   // inputs
-  --input-search-bg: var(--color-slate-500);
-  --input-search-border: 1px solid var(--color-slate-400);
+  --input-bg: var(--color-slate-500);
+  --input-border: 1px solid var(--color-slate-400);
   --input-focus-border: 1px solid var(--color-white);
   --input-color: var(--color-white);
-  --input-search-shadow: none;
+  --input-shadow: none;
 
   // task-item
   --task-item-bg: var(--color-slate-700);
