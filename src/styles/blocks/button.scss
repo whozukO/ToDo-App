@@ -1,0 +1,19 @@
+@use '@/styles/helpers' as *;
+
+.button {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  height: var(--input-height);
+  padding: 16px 30px;
+  white-space: nowrap;
+  border: none;
+  border-radius: var(--border-radius-base);
+  background-color: var(--button-primary-bg);
+  box-shadow: var(--shadow-card);
+  color: var(--color-white);
+
+  @include hover {
+    background-color: var(--button-primary-hover-bg);
+  }
+}
