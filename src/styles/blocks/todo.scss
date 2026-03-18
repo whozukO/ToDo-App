@@ -1,0 +1,42 @@
+@use '@/styles/helpers' as *;
+
+.todo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 80px;
+  max-width: 690px;
+  width: 100%;
+
+  &__title {
+    margin-bottom: 60px;
+  }
+
+  &__form {
+    width: 100%;
+    margin-bottom: 60px;
+  }
+
+  &__field {
+    display: flex;
+    column-gap: 27px;
+  }
+
+  &__toolbar {
+    display: flex;
+    justify-content: space-between;
+    column-gap: 12px;
+    width: 100%;
+    margin-bottom: 23px;
+  }
+
+  &__remaining-tasks {
+    color: var(--color-gray-300);
+  }
+
+  &__tasks-list {
+    display: grid;
+    row-gap: 25px;
+    width: 100%;
+  }
+}
