@@ -1,0 +1,97 @@
+@use '@/styles/helpers' as *;
+
+.task-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  column-gap: 28px;
+  height: 84px;
+  padding: 26px;
+  border: 1px solid transparent;
+  border-radius: var(--border-radius-base);
+  background-color: var(--task-item-bg);
+  box-shadow: var(--shadow-card);
+  transition: var(--transition-duration);
+
+  @include hover {
+    border: var(--task-item-hover-border);
+  }
+
+  &__content {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    column-gap: 30px;
+  }
+
+  &__checkbox {
+    @include square(20px);
+
+    position: relative;
+    flex-shrink: 0;
+    margin: 0;
+    border: var(--checkbox-border);
+    border-radius: 5px;
+    appearance: none;
+
+    &:not(:checked) {
+      &::after {
+        opacity: 0;
+      }
+    }
+
+    &:checked {
+      background-color: var(--color-black);
+
+      & + .task-item__title {
+        color: var(--color-gray-300);
+        text-decoration: line-through;
+      }
+    }
+
+    &::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      translate: -50% -50%;
+      width: 8px;
+      height: 6px;
+      background: url('@/assets/icons/check-mark-icon.svg') center/contain no-repeat;
+    }
+  }
+
+  &__title {
+    width: 100%;
+    border: none;
+    background-color: transparent;
+    color: var(--text-primary);
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  &__actions {
+    display: flex;
+    align-items: center;
+    column-gap: 28px;
+
+    &-button {
+      @include flex-center(true);
+
+      padding: 0;
+      border: none;
+      background-color: transparent;
+      color: var(--text-primary);
+
+      @include hover {
+        color: var(--color-gray-200);
+      }
+
+      svg {
+        @include square(25px);
+      }
+    }
+  }
+}
