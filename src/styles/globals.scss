@@ -3,9 +3,15 @@ body {
   flex-direction: column;
   background-color: var(--page-bg);
   font-family: var(--font-family-base), sans-serif;
+  font-size: 24px;
   font-weight: 400;
   color: var(--text-primary);
   line-height: 1.5;
+  transition:
+    background-color var(--transition-duration),
+    color var(--transition-duration),
+    border-color var(--transition-duration),
+    box-shadow var(--transition-duration);
 }
 
 main {
@@ -20,4 +26,9 @@ textarea,
 select,
 svg * {
   transition-duration: var(--transition-duration);
+}
+
+h1 {
+  font-size: 48px;
+  font-weight: 700;
 }
