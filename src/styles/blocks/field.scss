@@ -1,0 +1,23 @@
+@use '@/styles/helpers' as *;
+
+.field {
+  &__input {
+    width: 100%;
+    height: var(--input-height);
+    padding: 15px;
+    border: var(--input-search-border);
+    border-radius: var(--border-radius-base);
+    box-shadow: var(--shadow-card);
+    background-color: var(--input-search-bg);
+    color: var(--input-color);
+
+    &:focus {
+      outline: none;
+      border: var(--input-focus-border);
+    }
+
+    &::placeholder {
+      color: var(--color-gray-200);
+    }
+  }
+}
