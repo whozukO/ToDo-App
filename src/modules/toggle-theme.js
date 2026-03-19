@@ -30,7 +30,7 @@ class ToggleTheme {
   }
 
   onToggleButtonClick = () => {
-    const themeIsDark = document.documentElement.dataset.jsTheme === this.themes.dark
+    const themeIsDark = document.documentElement.dataset.theme === this.themes.dark
 
     if (themeIsDark) {
       this.setTheme(this.themes.light)
@@ -42,7 +42,7 @@ class ToggleTheme {
   }
 
   setTheme = (theme) => {
-    document.documentElement.dataset.jsTheme = theme
+    document.documentElement.dataset.theme = theme
   }
 
   bindEvents = () => {
