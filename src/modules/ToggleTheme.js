@@ -1,13 +1,13 @@
+import { STORAGE_KEYS } from '@/utils/constants.js'
+
 class ToggleTheme {
   selectors = {
     toggleButton: '[data-js-toggle-theme-button]',
   }
+
   themes = {
     dark: 'dark',
     light: 'light',
-  }
-  storageKeys = {
-    theme: 'theme',
   }
 
   constructor() {
@@ -18,7 +18,7 @@ class ToggleTheme {
   }
 
   setInitialTheme = () => {
-    const theme = localStorage.getItem(this.storageKeys.theme)
+    const theme = localStorage.getItem(STORAGE_KEYS.theme)
 
     if (theme === this.themes.light || theme === this.themes.dark) {
       this.setTheme(theme)
@@ -26,7 +26,7 @@ class ToggleTheme {
   }
 
   saveThemeToLocalStorage = (theme) => {
-    localStorage.setItem(this.storageKeys.theme, theme)
+    localStorage.setItem(STORAGE_KEYS.theme, theme)
   }
 
   onToggleButtonClick = () => {
