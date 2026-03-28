@@ -105,37 +105,39 @@
         </svg>
       </span>
     </button>
-    <div class="todo container" data-js-todo>
-      <h1 class="todo__title">My Tasks</h1>
-      <form class="todo__form" data-js-todo-new-task-form>
-        <div class="todo__field field">
-          <label for="new-task" class="field__label visually-hidden">New task</label>
-          <input
-            class="field__input"
-            id="new-task"
-            placeholder="Type your task here.."
-            autocomplete="off"
-            data-js-todo-new-task-input
-          />
-          <button class="button" type="submit">+ Add</button>
+    <div class="todo" data-js-todo>
+      <div class="todo__inner container">
+        <h1 class="todo__title">My Tasks</h1>
+        <form class="todo__form" data-js-todo-new-task-form>
+          <div class="todo__field field">
+            <label for="new-task" class="field__label visually-hidden">New task</label>
+            <input
+              class="field__input"
+              id="new-task"
+              placeholder="Type your task here.."
+              autocomplete="off"
+              data-js-todo-new-task-input
+            />
+            <button class="button" type="submit">+ Add</button>
+          </div>
+        </form>
+        <div class="todo__toolbar" data-js-todo-toolbar>
+          <div class="todo__filters filters" data-js-todo-filters>
+            <button class="filters__button is-active" type="button" data-js-todo-filters-button>
+              All
+            </button>
+            <button class="filters__button" type="button" data-js-todo-filters-button>Active</button>
+            <button class="filters__button" type="button" data-js-todo-filters-button>
+              Completed
+            </button>
+          </div>
+          <div class="todo__remaining-tasks" data-js-todo-remaining-task>
+            <span>2</span> tasks left
+          </div>
         </div>
-      </form>
-      <div class="todo__toolbar" data-js-todo-toolbar>
-        <div class="todo__filters filters" data-js-todo-filters>
-          <button class="filters__button is-active" type="button" data-js-todo-filters-button>
-            All
-          </button>
-          <button class="filters__button" type="button" data-js-todo-filters-button>Active</button>
-          <button class="filters__button" type="button" data-js-todo-filters-button>
-            Completed
-          </button>
-        </div>
-        <div class="todo__remaining-tasks" data-js-todo-remaining-task>
-          <span>2</span> tasks left
-        </div>
+        <ul class="todo__tasks-list" data-js-todo-tasks-list></ul>
       </div>
-      <ul class="todo__tasks-list" data-js-todo-tasks-list></ul>
-      <div class="todo__empty-error empty-error">
+      <div class="todo__empty-error empty-error container">
         <img
           class="empty-error__image"
           src="./src/assets/images/empty-error-image.png"
