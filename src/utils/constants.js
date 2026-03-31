@@ -1,8 +1,12 @@
 export const STORAGE_KEYS = {
   theme: 'theme',
-  tasks: 'tasks',
+  todos: 'todos',
 }
-export const TASK_STATUS = {
+export const TODO_STATUS = {
   active: 'active',
   completed: 'completed',
+}
+
+export const ATTRIBUTES = {
+  todoId: 'data-todo-id',
 }
