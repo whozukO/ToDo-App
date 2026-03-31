@@ -49,9 +49,9 @@
   --input-color: var(--color-gray-800);
   --input-shadow: var(--shadow-card);
 
-  // task-item
-  --task-item-bg: var(--color-white);
-  --task-item-hover-border: 1px solid var(--color-black);
+  // todo-item
+  --todo-item-bg: var(--color-white);
+  --todo-item-hover-border: 1px solid var(--color-black);
 
   // checkbox
   --checkbox-border: 2px solid var(--color-black);
@@ -75,9 +75,9 @@
   --input-color: var(--color-white);
   --input-shadow: none;
 
-  // task-item
-  --task-item-bg: var(--color-slate-700);
-  --task-item-hover-border: 1px solid var(--color-white);
+  // todo-item
+  --todo-item-bg: var(--color-slate-700);
+  --todo-item-hover-border: 1px solid var(--color-white);
 
   // checkbox
   --checkbox-border: 2px solid var(--color-white);

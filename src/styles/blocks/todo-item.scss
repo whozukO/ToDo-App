@@ -1,6 +1,6 @@
 @use '@/styles/helpers' as *;
 
-.task-item {
+.todo-item {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -9,12 +9,12 @@
   padding: 26px;
   border: 1px solid transparent;
   border-radius: var(--border-radius-base);
-  background-color: var(--task-item-bg);
+  background-color: var(--todo-item-bg);
   box-shadow: var(--shadow-card);
   transition: var(--transition-duration);
 
   @include hover {
-    border: var(--task-item-hover-border);
+    border: var(--todo-item-hover-border);
   }
 
   &__content {
@@ -43,7 +43,7 @@
     &:checked {
       background-color: var(--color-black);
 
-      & + .task-item__title {
+      & + .todo-item__title {
         color: var(--color-gray-300);
         text-decoration: line-through;
       }

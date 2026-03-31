@@ -107,16 +107,16 @@
     </button>
     <div class="todo" data-js-todo>
       <div class="todo__inner container">
-        <h1 class="todo__title">My Tasks</h1>
-        <form class="todo__form" data-js-todo-new-task-form>
+        <h1 class="todo__title">My todos</h1>
+        <form class="todo__form" data-js-todo-new-todo-form>
           <div class="todo__field field">
-            <label for="new-task" class="field__label visually-hidden">New task</label>
+            <label for="new-todo" class="field__label visually-hidden">New todo</label>
             <input
               class="field__input"
-              id="new-task"
-              placeholder="Type your task here.."
+              id="new-todo"
+              placeholder="Type your todo here.."
               autocomplete="off"
-              data-js-todo-new-task-input
+              data-js-todo-new-todo-input
             />
             <button class="button" type="submit">+ Add</button>
           </div>
@@ -126,16 +126,16 @@
             <button class="filters__button is-active" type="button" data-js-todo-filters-button>
               All
             </button>
-            <button class="filters__button" type="button" data-js-todo-filters-button>Active</button>
+            <button class="filters__button" type="button" data-js-todo-filters-button>
+              Active
+            </button>
             <button class="filters__button" type="button" data-js-todo-filters-button>
               Completed
             </button>
           </div>
-          <div class="todo__remaining-tasks" data-js-todo-remaining-task>
-            <span>2</span> tasks left
-          </div>
+          <div class="todo__remaining-todos" data-js-remaining-todos><span>2</span> todos left</div>
         </div>
-        <ul class="todo__tasks-list" data-js-todo-tasks-list></ul>
+        <ul class="todo__list" data-js-todo-list></ul>
       </div>
       <div class="todo__empty-error empty-error container">
         <img
@@ -146,9 +146,7 @@
           height="479"
           loading="lazy"
         />
-        <h2 class="empty-error__title">
-          Empty as my motivation 😅 Let’s start adding stuff!
-        </h2>
+        <h2 class="empty-error__title">Empty as my motivation 😅 Let’s start adding stuff!</h2>
       </div>
     </div>
   </body>

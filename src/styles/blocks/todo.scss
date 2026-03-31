@@ -32,11 +32,11 @@
     margin-bottom: 23px;
   }
 
-  &__remaining-tasks {
+  &__remaining-todos {
     color: var(--color-gray-300);
   }
 
-  &__tasks-list {
+  &__list {
     display: grid;
     row-gap: 25px;
     width: 100%;

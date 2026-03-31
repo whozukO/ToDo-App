@@ -3,14 +3,14 @@ import { ATTRIBUTES, STORAGE_KEYS, TODO_STATUS } from '@/utils/constants.js'
 class Todo {
   selectors = {
     root: '[data-js-todo]',
-    newTodoForm: '[data-js-todo-new-task-form]',
-    newTodoInput: '[data-js-todo-new-task-input]',
-    todoList: '[data-js-todo-tasks-list]',
-    todoItem: '[data-js-task-item]',
-    todoCheckbox: '[data-js-task-item-checkbox]',
-    todoItemInput: '[data-js-task-item-text]',
-    removeTodoButton: '[data-js-task-item-actions-delete-button]',
-    editTodoButton: '[data-js-task-item-actions-edit-button]',
+    newTodoForm: '[data-js-todo-new-todo-form]',
+    newTodoInput: '[data-js-todo-new-todo-input]',
+    todoList: '[data-js-todo-list]',
+    todoItem: '[data-js-todo-item]',
+    todoCheckbox: '[data-js-todo-item-checkbox]',
+    todoItemInput: '[data-js-todo-item-text]',
+    removeTodoButton: '[data-js-todo-item-actions-delete-button]',
+    editTodoButton: '[data-js-todo-item-actions-edit-button]',
   }
 
   constructor() {
@@ -138,6 +138,8 @@ class Todo {
   }
 
   getTodosFromLocalStorage = () => {
+    // Разобрать кейс, когда юзер в ручную меняет ЛС
+    // Прокинуть это все через try/catch
     return JSON.parse(localStorage.getItem(STORAGE_KEYS.todos)) ?? []
   }
 
@@ -146,31 +148,31 @@ class Todo {
     const isChecked = status === TODO_STATUS.completed ? 'checked' : ''
 
     const todoItemHTML = `
-      <li class="todo__tasks-list-item task-item" data-js-task-item data-todo-id="${id}">
-        <div class="task-item__content">
-          <label class="visually-hidden" for="task-${id}">Mark task as completed</label>
+      <li class="todo__list-item todo-item" data-js-todo-item data-todo-id="${id}">
+        <div class="todo-item__content">
+          <label class="visually-hidden" for="todo-${id}">Mark todo as completed</label>
           <input
-            class="task-item__checkbox"
+            class="todo-item__checkbox"
             type="checkbox"
-            id="task-${id}"
-            data-js-task-item-checkbox
+            id="todo-${id}"
+            data-js-todo-item-checkbox
             ${isChecked}
           />
           <input
-            class="task-item__title"
+            class="todo-item__title"
             type="text"
             value="${name}"
-            aria-label="Task"
+            aria-label="Todo"
             readonly
-            data-js-task-item-text
+            data-js-todo-item-text
           />
         </div>
-        <div class="task-item__actions" data-js-task-item-actions>
+        <div class="todo-item__actions" data-js-todo-item-actions>
           <button
-            class="task-item__actions-button"
+            class="todo-item__actions-button"
             type="button"
-            aria-label="Edit task"
-            data-js-task-item-actions-edit-button
+            aria-label="Edit todo"
+            data-js-todo-item-actions-edit-button
           >
             <svg
               width="24"
@@ -196,10 +198,10 @@ class Todo {
             </svg>
           </button>
           <button
-            class="task-item__actions-button"
+            class="todo-item__actions-button"
             type="button"
-            aria-label="Delete task"
-            data-js-task-item-actions-delete-button
+            aria-label="Delete todo"
+            data-js-todo-item-actions-delete-button
           >
             <svg
               width="24"
@@ -237,6 +239,13 @@ class Todo {
 
     this.todoList.insertAdjacentHTML('afterbegin', todoItemHTML)
 
+    // Все обработчики должны вешаться в bindEvents, логично? Думаю да, подумать как исправить этот момент
+    // Фактически можно использовать это как временное решение для проверки handleTodoCheckbox()
+
+    // Вариант ли использовать делегирование событий?
+    //    Да, как будто должно работать, но тогда возможно нужно будет немного изменить логику (искать closest/target элементы)
+    //    Тогда возможно нужно будет и другие ивенты делегировать
+
     const checkboxElement = this.todoList.firstElementChild.querySelector(
       this.selectors.todoCheckbox
     )
@@ -260,6 +269,19 @@ class Todo {
 
     this.saveTodosToLocalStorage(updatedTodos)
   }
+
+  // Счетчик активных тасок
+
+  // Фильтрация тасок по статусу
+
+  // Сделать стор с тудушками
+  //    Сначала была идея как в Н-Суши (Там был отдельный класс BasketStore)
+  //    Тут можно глобально в конструкторе получить массив при ините и взаимодействовать с ним
+  //        Но как тогда сохранять?
+  //            Если не понятно, то можно просто создавать обьект с массивом данных (получать так же
+  //            при ините) и методами. Нужно изучить этот момент и все возможные ньюансы
+  //    Если верхний - не вариант, то в целом почему бы не создать отдельный класс с стором и его
+  //    методами (Гет/Сет и т.п.), как в Н-Суши?
 }
 
 export default Todo
