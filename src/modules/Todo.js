@@ -1,4 +1,4 @@
-import { ATTRIBUTES, STORAGE_KEYS, TODO_STATUS } from '@/utils/constants.js'
+import { ATTRIBUTES, TODO_STATUS } from '@/utils/constants.js'
 import { todoStore } from '@/modules/TodoStore.js'
 
 class Todo {
