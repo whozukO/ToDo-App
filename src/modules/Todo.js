@@ -1,4 +1,5 @@
 import { ATTRIBUTES, STORAGE_KEYS, TODO_STATUS } from '@/utils/constants.js'
+import { todoStore } from '@/modules/TodoStore.js'
 
 class Todo {
   selectors = {
@@ -24,11 +25,10 @@ class Todo {
   }
 
   init = () => {
-    const todos = this.getTodosFromLocalStorage()
-    const isEmpty = todos.length === 0
+    const isEmpty = todoStore.todos.length === 0
 
     if (!isEmpty) {
-      todos.forEach((todo) => this.renderTodo(todo))
+      todoStore.todos.forEach((todo) => this.renderTodo(todo))
     }
   }
 
@@ -46,14 +46,12 @@ class Todo {
       return
     }
 
-    const newTodo = this.createNewTodo(newTodoTitle)
-    const todos = this.getTodosFromLocalStorage()
+    const newTodo = todoStore.createNewTodo(newTodoTitle)
 
-    todos.push(newTodo)
+    todoStore.todos.push(newTodo)
+    todoStore.setTodo(todoStore.todos)
 
-    this.saveTodosToLocalStorage(todos)
     this.renderTodo(newTodo)
-
     this.newTodoInputElement.value = ''
   }
 
@@ -63,14 +61,14 @@ class Todo {
     const todoId = todoItemElement.getAttribute(ATTRIBUTES.todoId)
     const isChecked = checkboxElement.checked
 
-    this.setTodoStatus(todoId, isChecked)
+    todoStore.setTodoStatus(todoId, isChecked)
   }
 
   handleRemoveTodo = (event) => {
     const todoItemElement = event.target.closest(this.selectors.todoItem)
     const todoId = todoItemElement.getAttribute(ATTRIBUTES.todoId)
 
-    this.removeTodo(todoItemElement, todoId)
+    todoStore.removeTodo(todoItemElement, todoId)
   }
 
   handleEditTodo = (event) => {
@@ -89,10 +87,10 @@ class Todo {
       const hasTitle = newTodoTitle.trim().length > 0
 
       if (!hasTitle) {
-        return this.removeTodo(todoItemElement, todoId)
+        return todoStore.removeTodo(todoItemElement, todoId)
       }
 
-      this.setTodoTitle(todoId, newTodoTitle)
+      todoStore.setTodoTitle(todoId, newTodoTitle)
     }
 
     todoItemInputElement.addEventListener('change', handleTitleChange)
@@ -101,46 +99,6 @@ class Todo {
     todoItemInputElement.readOnly = false
     todoItemInputElement.focus()
     todoItemInputElement.setSelectionRange(todoLength, todoLength)
-  }
-
-  setTodoStatus = (todoId, isCompleted) => {
-    const todos = this.getTodosFromLocalStorage()
-    const todo = todos.find((todo) => todo.id === todoId)
-
-    if (isCompleted) {
-      todo.status = TODO_STATUS.completed
-    } else {
-      todo.status = TODO_STATUS.active
-    }
-
-    this.saveTodosToLocalStorage(todos)
-  }
-
-  setTodoTitle = (todoId, todoTitle) => {
-    const todos = this.getTodosFromLocalStorage()
-    const todo = todos.find((todo) => todo.id === todoId)
-
-    todo.name = todoTitle
-
-    this.saveTodosToLocalStorage(todos)
-  }
-
-  createNewTodo = (todoTitle) => {
-    return {
-      id: crypto.randomUUID(),
-      name: todoTitle,
-      status: TODO_STATUS.active,
-    }
-  }
-
-  saveTodosToLocalStorage = (todos) => {
-    localStorage.setItem(STORAGE_KEYS.todos, JSON.stringify(todos))
-  }
-
-  getTodosFromLocalStorage = () => {
-    // Разобрать кейс, когда юзер в ручную меняет ЛС
-    // Прокинуть это все через try/catch
-    return JSON.parse(localStorage.getItem(STORAGE_KEYS.todos)) ?? []
   }
 
   renderTodo = (todo) => {
@@ -259,15 +217,6 @@ class Todo {
     checkboxElement.addEventListener('click', this.handleTodoCheckbox)
     removeButtonElement.addEventListener('click', this.handleRemoveTodo)
     editTodoButtonElement.addEventListener('click', this.handleEditTodo)
-  }
-
-  removeTodo = (todoItemElement, todoId) => {
-    const todos = this.getTodosFromLocalStorage()
-    const updatedTodos = todos.filter((todo) => todo.id !== todoId)
-
-    todoItemElement.remove()
-
-    this.saveTodosToLocalStorage(updatedTodos)
   }
 
   // Счетчик активных тасок
