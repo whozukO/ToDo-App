@@ -12,6 +12,7 @@ class Todo {
     todoItemInput: '[data-js-todo-item-text]',
     removeTodoButton: '[data-js-todo-item-actions-delete-button]',
     editTodoButton: '[data-js-todo-item-actions-edit-button]',
+    remainingTodosCount: '[data-js-remaining-todos-count]',
   }
 
   constructor() {
@@ -19,6 +20,9 @@ class Todo {
     this.newTodoFormElement = this.rootElement.querySelector(this.selectors.newTodoForm)
     this.newTodoInputElement = this.rootElement.querySelector(this.selectors.newTodoInput)
     this.todoList = this.rootElement.querySelector(this.selectors.todoList)
+    this.remainingTodosCountElement = this.rootElement.querySelector(
+      this.selectors.remainingTodosCount
+    )
 
     this.init()
     this.bindEvent()
@@ -30,6 +34,8 @@ class Todo {
     if (!isEmpty) {
       todoStore.todos.forEach((todo) => this.renderTodo(todo))
     }
+
+    this.renderRemainingTodosCount()
   }
 
   bindEvent = () => {
@@ -53,6 +59,8 @@ class Todo {
 
     this.renderTodo(newTodo)
     this.newTodoInputElement.value = ''
+
+    this.renderRemainingTodosCount()
   }
 
   handleTodoCheckbox = (event) => {
@@ -62,6 +70,8 @@ class Todo {
     const isChecked = checkboxElement.checked
 
     todoStore.setTodoStatus(todoId, isChecked)
+
+    this.renderRemainingTodosCount()
   }
 
   handleRemoveTodo = (event) => {
@@ -69,6 +79,8 @@ class Todo {
     const todoId = todoItemElement.getAttribute(ATTRIBUTES.todoId)
 
     todoStore.removeTodo(todoItemElement, todoId)
+
+    this.renderRemainingTodosCount()
   }
 
   handleEditTodo = (event) => {
@@ -99,6 +111,8 @@ class Todo {
     todoItemInputElement.readOnly = false
     todoItemInputElement.focus()
     todoItemInputElement.setSelectionRange(todoLength, todoLength)
+
+    this.renderRemainingTodosCount()
   }
 
   renderTodo = (todo) => {
@@ -219,7 +233,11 @@ class Todo {
     editTodoButtonElement.addEventListener('click', this.handleEditTodo)
   }
 
-  // Счетчик активных тасок
+  renderRemainingTodosCount = () => {
+    const activeTodos = todoStore.todos.filter((todo) => todo.status === TODO_STATUS.active)
+
+    this.remainingTodosCountElement.textContent = activeTodos.length
+  }
 
   // Фильтрация тасок по статусу
 
