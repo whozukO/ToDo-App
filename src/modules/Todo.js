@@ -19,7 +19,7 @@ class Todo {
     this.rootElement = document.querySelector(this.selectors.root)
     this.newTodoFormElement = this.rootElement.querySelector(this.selectors.newTodoForm)
     this.newTodoInputElement = this.rootElement.querySelector(this.selectors.newTodoInput)
-    this.todoList = this.rootElement.querySelector(this.selectors.todoList)
+    this.todoListElement = this.rootElement.querySelector(this.selectors.todoList)
     this.remainingTodosCountElement = this.rootElement.querySelector(
       this.selectors.remainingTodosCount
     )
@@ -209,7 +209,7 @@ class Todo {
       </li>
     `
 
-    this.todoList.insertAdjacentHTML('afterbegin', todoItemHTML)
+    this.todoListElement.insertAdjacentHTML('afterbegin', todoItemHTML)
 
     // Все обработчики должны вешаться в bindEvents, логично? Думаю да, подумать как исправить этот момент
     // Фактически можно использовать это как временное решение для проверки handleTodoCheckbox()
@@ -218,13 +218,13 @@ class Todo {
     //    Да, как будто должно работать, но тогда возможно нужно будет немного изменить логику (искать closest/target элементы)
     //    Тогда возможно нужно будет и другие ивенты делегировать
 
-    const checkboxElement = this.todoList.firstElementChild.querySelector(
+    const checkboxElement = this.todoListElement.firstElementChild.querySelector(
       this.selectors.todoCheckbox
     )
-    const removeButtonElement = this.todoList.firstElementChild.querySelector(
+    const removeButtonElement = this.todoListElement.firstElementChild.querySelector(
       this.selectors.removeTodoButton
     )
-    const editTodoButtonElement = this.todoList.firstElementChild.querySelector(
+    const editTodoButtonElement = this.todoListElement.firstElementChild.querySelector(
       this.selectors.editTodoButton
     )
 
@@ -240,15 +240,6 @@ class Todo {
   }
 
   // Фильтрация тасок по статусу
-
-  // Сделать стор с тудушками
-  //    Сначала была идея как в Н-Суши (Там был отдельный класс BasketStore)
-  //    Тут можно глобально в конструкторе получить массив при ините и взаимодействовать с ним
-  //        Но как тогда сохранять?
-  //            Если не понятно, то можно просто создавать обьект с массивом данных (получать так же
-  //            при ините) и методами. Нужно изучить этот момент и все возможные ньюансы
-  //    Если верхний - не вариант, то в целом почему бы не создать отдельный класс с стором и его
-  //    методами (Гет/Сет и т.п.), как в Н-Суши?
 }
 
 export default Todo
