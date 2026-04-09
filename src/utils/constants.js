@@ -9,4 +9,11 @@ export const TODO_STATUS = {
 
 export const ATTRIBUTES = {
   todoId: 'data-todo-id',
+  filterType: 'data-filter-type',
+}
+
+export const FILTER_TYPES = {
+  all: 'all',
+  active: 'active',
+  completed: 'completed',
 }

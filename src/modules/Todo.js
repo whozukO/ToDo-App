@@ -1,4 +1,4 @@
-import { ATTRIBUTES, TODO_STATUS } from '@/utils/constants.js'
+import { ATTRIBUTES, FILTER_TYPES, TODO_STATUS } from '@/utils/constants.js'
 import { todoStore } from '@/modules/TodoStore.js'
 
 class Todo {
@@ -13,6 +13,12 @@ class Todo {
     removeTodoButton: '[data-js-todo-item-actions-delete-button]',
     editTodoButton: '[data-js-todo-item-actions-edit-button]',
     remainingTodosCount: '[data-js-remaining-todos-count]',
+    filters: '[data-js-filters]',
+    filterButton: '[data-js-filters-button]',
+  }
+
+  stateClasses = {
+    isActive: 'is-active',
   }
 
   constructor() {
@@ -23,6 +29,13 @@ class Todo {
     this.remainingTodosCountElement = this.rootElement.querySelector(
       this.selectors.remainingTodosCount
     )
+    this.filtersElement = this.rootElement.querySelector(this.selectors.filters)
+    this.filtersButtonElements = this.filtersElement.querySelectorAll(this.selectors.filterButton)
+    this.stateFilters = {
+      activeFilterIndex: [...this.filtersButtonElements].findIndex((buttonElement) =>
+        buttonElement.classList.contains(this.stateClasses.isActive)
+      ),
+    }
 
     this.init()
     this.bindEvent()
@@ -40,6 +53,9 @@ class Todo {
 
   bindEvent = () => {
     this.newTodoFormElement.addEventListener('submit', this.handleNewTodoSubmit)
+    this.filtersButtonElements.forEach((buttonElement, index) => {
+      buttonElement.addEventListener('click', (event) => this.handleFilterTodos(event, index))
+    })
   }
 
   handleNewTodoSubmit = (event) => {
@@ -113,6 +129,42 @@ class Todo {
     todoItemInputElement.setSelectionRange(todoLength, todoLength)
 
     this.renderRemainingTodosCount()
+  }
+
+  handleFilterTodos = (event, filterButtonIndex) => {
+    const filterType = event.target.getAttribute(ATTRIBUTES.filterType)
+
+    if (!filterType) {
+      return
+    }
+
+    this.stateFilters.activeFilterIndex = filterButtonIndex
+
+    this.filtersButtonElements.forEach((buttonElement, index) => {
+      if (filterButtonIndex === index) {
+        buttonElement.classList.add(this.stateClasses.isActive)
+      } else {
+        buttonElement.classList.remove(this.stateClasses.isActive)
+      }
+    })
+
+    this.todoListElement.replaceChildren()
+
+    let filteredTodos
+
+    switch (filterType) {
+      case FILTER_TYPES.all:
+        filteredTodos = todoStore.todos
+        break
+      case FILTER_TYPES.active:
+        filteredTodos = todoStore.todos.filter((todo) => todo.status === TODO_STATUS.active)
+        break
+      case FILTER_TYPES.completed:
+        filteredTodos = todoStore.todos.filter((todo) => todo.status === TODO_STATUS.completed)
+        break
+    }
+
+    filteredTodos.forEach((todo) => this.renderTodo(todo))
   }
 
   renderTodo = (todo) => {
@@ -211,13 +263,6 @@ class Todo {
 
     this.todoListElement.insertAdjacentHTML('afterbegin', todoItemHTML)
 
-    // Все обработчики должны вешаться в bindEvents, логично? Думаю да, подумать как исправить этот момент
-    // Фактически можно использовать это как временное решение для проверки handleTodoCheckbox()
-
-    // Вариант ли использовать делегирование событий?
-    //    Да, как будто должно работать, но тогда возможно нужно будет немного изменить логику (искать closest/target элементы)
-    //    Тогда возможно нужно будет и другие ивенты делегировать
-
     const checkboxElement = this.todoListElement.firstElementChild.querySelector(
       this.selectors.todoCheckbox
     )
@@ -238,8 +283,6 @@ class Todo {
 
     this.remainingTodosCountElement.textContent = activeTodos.length
   }
-
-  // Фильтрация тасок по статусу
 }
 
 export default Todo
