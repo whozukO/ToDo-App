@@ -32,9 +32,13 @@ class Todo {
     this.filtersElement = this.rootElement.querySelector(this.selectors.filters)
     this.filtersButtonElements = this.filtersElement.querySelectorAll(this.selectors.filterButton)
     this.stateFilters = {
-      activeFilterIndex: [...this.filtersButtonElements].findIndex((buttonElement) =>
-        buttonElement.classList.contains(this.stateClasses.isActive)
-      ),
+      activeFilterType: [...this.filtersButtonElements].map((buttonElement) => {
+        const isActiveButton = buttonElement.classList.contains(this.stateClasses.isActive)
+
+        if (isActiveButton) {
+          return buttonElement.getAttribute(ATTRIBUTES.filterType)
+        }
+      }),
     }
 
     this.init()
@@ -53,9 +57,7 @@ class Todo {
 
   bindEvent = () => {
     this.newTodoFormElement.addEventListener('submit', this.handleNewTodoSubmit)
-    this.filtersButtonElements.forEach((buttonElement, index) => {
-      buttonElement.addEventListener('click', (event) => this.handleFilterTodos(event, index))
-    })
+    this.filtersElement.addEventListener('click', this.handleFilterTodos)
   }
 
   handleNewTodoSubmit = (event) => {
@@ -131,21 +133,19 @@ class Todo {
     this.renderRemainingTodosCount()
   }
 
-  handleFilterTodos = (event, filterButtonIndex) => {
+  handleFilterTodos = (event) => {
     const filterType = event.target.getAttribute(ATTRIBUTES.filterType)
 
     if (!filterType) {
       return
     }
 
-    this.stateFilters.activeFilterIndex = filterButtonIndex
+    this.stateFilters.activeFilterType = filterType
 
-    this.filtersButtonElements.forEach((buttonElement, index) => {
-      if (filterButtonIndex === index) {
-        buttonElement.classList.add(this.stateClasses.isActive)
-      } else {
-        buttonElement.classList.remove(this.stateClasses.isActive)
-      }
+    this.filtersButtonElements.forEach((buttonElement) => {
+      const isActiveFilter = filterType === buttonElement.getAttribute(ATTRIBUTES.filterType)
+
+      buttonElement.classList.toggle(this.stateClasses.isActive, isActiveFilter)
     })
 
     this.todoListElement.replaceChildren()
