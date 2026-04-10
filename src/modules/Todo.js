@@ -12,7 +12,7 @@ class Todo {
     todoItemInput: '[data-js-todo-item-text]',
     removeTodoButton: '[data-js-todo-item-actions-delete-button]',
     editTodoButton: '[data-js-todo-item-actions-edit-button]',
-    remainingTodosCount: '[data-js-remaining-todos-count]',
+    activeTodosCount: '[data-js-active-todos-count]',
     filters: '[data-js-filters]',
     filterButton: '[data-js-filters-button]',
   }
@@ -26,9 +26,7 @@ class Todo {
     this.newTodoFormElement = this.rootElement.querySelector(this.selectors.newTodoForm)
     this.newTodoInputElement = this.rootElement.querySelector(this.selectors.newTodoInput)
     this.todoListElement = this.rootElement.querySelector(this.selectors.todoList)
-    this.remainingTodosCountElement = this.rootElement.querySelector(
-      this.selectors.remainingTodosCount
-    )
+    this.activeTodosCountElement = this.rootElement.querySelector(this.selectors.activeTodosCount)
     this.filtersElement = this.rootElement.querySelector(this.selectors.filters)
     this.filtersButtonElements = this.filtersElement.querySelectorAll(this.selectors.filterButton)
     this.stateFilters = {
@@ -52,7 +50,7 @@ class Todo {
       todoStore.todos.forEach((todo) => this.renderTodo(todo))
     }
 
-    this.renderRemainingTodosCount()
+    this.renderActiveTodosCount()
   }
 
   bindEvent = () => {
@@ -79,7 +77,7 @@ class Todo {
     this.renderTodo(newTodo)
     this.newTodoInputElement.value = ''
 
-    this.renderRemainingTodosCount()
+    this.renderActiveTodosCount()
   }
 
   handleTodoListClick = (event) => {
@@ -110,7 +108,7 @@ class Todo {
 
     todoStore.setTodoStatus(todoId, isChecked)
 
-    this.renderRemainingTodosCount()
+    this.renderActiveTodosCount()
   }
 
   handleRemoveTodo = (event) => {
@@ -119,7 +117,7 @@ class Todo {
 
     todoStore.removeTodo(todoItemElement, todoId)
 
-    this.renderRemainingTodosCount()
+    this.renderActiveTodosCount()
   }
 
   handleEditTodo = (event) => {
@@ -151,7 +149,7 @@ class Todo {
     todoItemInputElement.focus()
     todoItemInputElement.setSelectionRange(todoLength, todoLength)
 
-    this.renderRemainingTodosCount()
+    this.renderActiveTodosCount()
   }
 
   handleFilterTodos = (event) => {
@@ -285,9 +283,9 @@ class Todo {
     this.todoListElement.insertAdjacentHTML('afterbegin', todoItemHTML)
   }
 
-  renderRemainingTodosCount = () => {
+  renderActiveTodosCount = () => {
     const activeTodos = todoStore.todos.filter((todo) => todo.status === TODO_STATUS.active)
-    this.remainingTodosCountElement.textContent = activeTodos.length
+    this.activeTodosCountElement.textContent = activeTodos.length
   }
 }
 
