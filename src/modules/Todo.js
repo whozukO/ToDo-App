@@ -58,6 +58,7 @@ class Todo {
   bindEvent = () => {
     this.newTodoFormElement.addEventListener('submit', this.handleNewTodoSubmit)
     this.filtersElement.addEventListener('click', this.handleFilterTodos)
+    this.todoListElement.addEventListener('click', this.handleTodoListClick)
   }
 
   handleNewTodoSubmit = (event) => {
@@ -79,6 +80,26 @@ class Todo {
     this.newTodoInputElement.value = ''
 
     this.renderRemainingTodosCount()
+  }
+
+  handleTodoListClick = (event) => {
+    const checkboxElement = event.target.closest(this.selectors.todoCheckbox)
+
+    if (checkboxElement) {
+      this.handleTodoCheckbox(event)
+    }
+
+    const removeButtonElement = event.target.closest(this.selectors.removeTodoButton)
+
+    if (removeButtonElement) {
+      this.handleRemoveTodo(event)
+    }
+
+    const editTodoButtonElement = event.target.closest(this.selectors.editTodoButton)
+
+    if (editTodoButtonElement) {
+      this.handleEditTodo(event)
+    }
   }
 
   handleTodoCheckbox = (event) => {
@@ -262,25 +283,10 @@ class Todo {
     `
 
     this.todoListElement.insertAdjacentHTML('afterbegin', todoItemHTML)
-
-    const checkboxElement = this.todoListElement.firstElementChild.querySelector(
-      this.selectors.todoCheckbox
-    )
-    const removeButtonElement = this.todoListElement.firstElementChild.querySelector(
-      this.selectors.removeTodoButton
-    )
-    const editTodoButtonElement = this.todoListElement.firstElementChild.querySelector(
-      this.selectors.editTodoButton
-    )
-
-    checkboxElement.addEventListener('click', this.handleTodoCheckbox)
-    removeButtonElement.addEventListener('click', this.handleRemoveTodo)
-    editTodoButtonElement.addEventListener('click', this.handleEditTodo)
   }
 
   renderRemainingTodosCount = () => {
     const activeTodos = todoStore.todos.filter((todo) => todo.status === TODO_STATUS.active)
-
     this.remainingTodosCountElement.textContent = activeTodos.length
   }
 }
