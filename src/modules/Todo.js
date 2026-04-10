@@ -284,8 +284,7 @@ class Todo {
   }
 
   renderActiveTodosCount = () => {
-    const activeTodos = todoStore.todos.filter((todo) => todo.status === TODO_STATUS.active)
-    this.activeTodosCountElement.textContent = activeTodos.length
+    this.activeTodosCountElement.textContent = todoStore.getActiveTodos().length
   }
 }
 

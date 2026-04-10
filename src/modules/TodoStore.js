@@ -35,6 +35,10 @@ class TodoStore {
     return JSON.parse(localStorage.getItem(STORAGE_KEYS.todos)) ?? []
   }
 
+  getActiveTodos = () => {
+    return todoStore.todos.filter((todo) => todo.status === TODO_STATUS.active)
+  }
+
   createNewTodo = (todoTitle) => {
     return {
       id: crypto.randomUUID(),
