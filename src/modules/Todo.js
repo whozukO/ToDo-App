@@ -86,7 +86,7 @@ class Todo {
     const checkboxElement = event.target.closest(this.selectors.todoCheckbox)
 
     if (checkboxElement) {
-      this.handleTodoCheckbox(event)
+      this.handleToggleTodoStatus(event)
     }
 
     const removeButtonElement = event.target.closest(this.selectors.removeTodoButton)
@@ -102,7 +102,7 @@ class Todo {
     }
   }
 
-  handleTodoCheckbox = (event) => {
+  handleToggleTodoStatus = (event) => {
     const checkboxElement = event.target
     const todoItemElement = checkboxElement.closest(this.selectors.todoItem)
     const todoId = todoItemElement.getAttribute(ATTRIBUTES.todoId)
