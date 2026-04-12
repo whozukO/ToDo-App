@@ -1,4 +1,4 @@
-import { ATTRIBUTES, FILTER_TYPES, TODO_STATUS } from '@/utils/constants.js'
+import { ATTRIBUTES, EMPTY_STATE, FILTER_TYPES, TODO_STATUS } from '@/utils/constants.js'
 import { todoStore } from '@/modules/TodoStore.js'
 
 class Todo {
@@ -46,9 +46,11 @@ class Todo {
   init = () => {
     const isEmpty = todoStore.todos.length === 0
 
-    if (!isEmpty) {
-      todoStore.todos.forEach((todo) => this.renderTodo(todo))
+    if (isEmpty) {
+      return this.renderEmptyState(FILTER_TYPES.all)
     }
+
+    todoStore.todos.forEach((todo) => this.renderTodo(todo))
 
     this.renderActiveTodosCount()
   }
@@ -183,6 +185,10 @@ class Todo {
         break
     }
 
+    if (filteredTodos.length === 0) {
+      return this.renderEmptyState(filterType)
+    }
+
     filteredTodos.forEach((todo) => this.renderTodo(todo))
   }
 
@@ -285,6 +291,24 @@ class Todo {
 
   renderActiveTodosCount = () => {
     this.activeTodosCountElement.textContent = todoStore.getActiveTodos().length
+  }
+
+  renderEmptyState = (filterType) => {
+    const emptyStateHTML = `
+      <div class="todo__empty-error empty-error">
+        <img
+          class="empty-error__image"
+          src="./src/assets/images/empty-error-image.png"
+          alt="Man taking a selfie"
+          width="340"
+          height="479"
+          loading="lazy"
+        />
+        <h2 class="empty-error__title">${EMPTY_STATE[filterType].title}</h2>
+      </div>
+    `
+
+    this.todoListElement.insertAdjacentHTML('beforeend', emptyStateHTML)
   }
 }
 
