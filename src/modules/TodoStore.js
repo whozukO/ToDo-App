@@ -35,8 +35,8 @@ class TodoStore {
     return JSON.parse(localStorage.getItem(STORAGE_KEYS.todos)) ?? []
   }
 
-  getActiveTodos = () => {
-    return todoStore.todos.filter((todo) => todo.status === TODO_STATUS.active)
+  getFilteredTodos = (filterType) => {
+    return todoStore.todos.filter((todo) => todo.status === filterType)
   }
 
   createNewTodo = (todoTitle) => {
