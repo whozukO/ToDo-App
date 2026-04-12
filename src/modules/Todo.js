@@ -29,6 +29,7 @@ class Todo {
     this.activeTodosCountElement = this.rootElement.querySelector(this.selectors.activeTodosCount)
     this.filtersElement = this.rootElement.querySelector(this.selectors.filters)
     this.filtersButtonElements = this.filtersElement.querySelectorAll(this.selectors.filterButton)
+
     this.stateFilters = {
       activeFilterType: [...this.filtersButtonElements].map((buttonElement) => {
         const isActiveButton = buttonElement.classList.contains(this.stateClasses.isActive)
@@ -117,7 +118,9 @@ class Todo {
     const todoItemElement = event.target.closest(this.selectors.todoItem)
     const todoId = todoItemElement.getAttribute(ATTRIBUTES.todoId)
 
-    todoStore.removeTodo(todoItemElement, todoId)
+    todoStore.removeTodo(todoId)
+
+    todoItemElement.remove()
 
     this.renderActiveTodosCount()
   }
@@ -137,11 +140,13 @@ class Todo {
       const newTodoTitle = todoItemInputElement.value
       const hasTitle = newTodoTitle.trim().length > 0
 
-      if (!hasTitle) {
-        return todoStore.removeTodo(todoItemElement, todoId)
+      if (hasTitle) {
+        return todoStore.setTodoTitle(todoId, newTodoTitle)
       }
 
-      todoStore.setTodoTitle(todoId, newTodoTitle)
+      todoStore.removeTodo(todoId)
+
+      todoItemElement.remove()
     }
 
     todoItemInputElement.addEventListener('change', handleTitleChange)

@@ -47,11 +47,9 @@ class TodoStore {
     }
   }
 
-  removeTodo = (todoItemElement, todoId) => {
+  removeTodo = (todoId) => {
     this.todos = this.todos.filter((todo) => todo.id !== todoId)
     this.setTodo(this.todos)
-
-    todoItemElement.remove()
   }
 }
 
