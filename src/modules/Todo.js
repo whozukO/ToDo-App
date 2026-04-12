@@ -31,29 +31,13 @@ class Todo {
     this.filtersButtonElements = this.filtersElement.querySelectorAll(this.selectors.filterButton)
 
     this.stateFilters = {
-      activeFilterType: [...this.filtersButtonElements].map((buttonElement) => {
-        const isActiveButton = buttonElement.classList.contains(this.stateClasses.isActive)
-
-        if (isActiveButton) {
-          return buttonElement.getAttribute(ATTRIBUTES.filterType)
-        }
-      }),
+      activeFilterType: [...this.filtersButtonElements]
+        .find((buttonElement) => buttonElement.classList.contains(this.stateClasses.isActive))
+        ?.getAttribute(ATTRIBUTES.filterType),
     }
 
-    this.init()
+    this.updateUI()
     this.bindEvent()
-  }
-
-  init = () => {
-    const isEmpty = todoStore.todos.length === 0
-
-    if (isEmpty) {
-      return this.renderEmptyState(FILTER_TYPES.all)
-    }
-
-    todoStore.todos.forEach((todo) => this.renderTodo(todo))
-
-    this.renderActiveTodosCount()
   }
 
   bindEvent = () => {
@@ -77,10 +61,8 @@ class Todo {
     todoStore.todos.push(newTodo)
     todoStore.setTodo(todoStore.todos)
 
-    this.renderTodo(newTodo)
+    this.updateUI()
     this.newTodoInputElement.value = ''
-
-    this.renderActiveTodosCount()
   }
 
   handleTodoListClick = (event) => {
@@ -120,9 +102,7 @@ class Todo {
 
     todoStore.removeTodo(todoId)
 
-    todoItemElement.remove()
-
-    this.renderActiveTodosCount()
+    this.updateUI()
   }
 
   handleEditTodo = (event) => {
@@ -146,7 +126,7 @@ class Todo {
 
       todoStore.removeTodo(todoId)
 
-      todoItemElement.remove()
+      this.updateUI()
     }
 
     todoItemInputElement.addEventListener('change', handleTitleChange)
@@ -155,53 +135,35 @@ class Todo {
     todoItemInputElement.readOnly = false
     todoItemInputElement.focus()
     todoItemInputElement.setSelectionRange(todoLength, todoLength)
-
-    this.renderActiveTodosCount()
   }
 
   handleFilterTodos = (event) => {
     const filterType = event.target.getAttribute(ATTRIBUTES.filterType)
 
-    if (!filterType) {
-      return
-    }
-
     this.stateFilters.activeFilterType = filterType
-
     this.filtersButtonElements.forEach((buttonElement) => {
       const isActiveFilter = filterType === buttonElement.getAttribute(ATTRIBUTES.filterType)
 
       buttonElement.classList.toggle(this.stateClasses.isActive, isActiveFilter)
     })
 
-    this.todoListElement.replaceChildren()
-
-    let filteredTodos
-
-    switch (filterType) {
-      case FILTER_TYPES.all:
-        filteredTodos = todoStore.todos
-        break
-      case FILTER_TYPES.active:
-        filteredTodos = todoStore.todos.filter((todo) => todo.status === TODO_STATUS.active)
-        break
-      case FILTER_TYPES.completed:
-        filteredTodos = todoStore.todos.filter((todo) => todo.status === TODO_STATUS.completed)
-        break
-    }
+    const filteredTodos = this.filterTodos(filterType)
 
     if (filteredTodos.length === 0) {
       return this.renderEmptyState(filterType)
     }
 
-    filteredTodos.forEach((todo) => this.renderTodo(todo))
+    this.renderTodos(filteredTodos)
   }
 
-  renderTodo = (todo) => {
-    const { id, name, status } = todo
-    const isChecked = status === TODO_STATUS.completed ? 'checked' : ''
+  renderTodos = (todos) => {
+    this.todoListElement.replaceChildren()
 
-    const todoItemHTML = `
+    todos.forEach((todo) => {
+      const { id, name, status } = todo
+      const isChecked = status === TODO_STATUS.completed ? 'checked' : ''
+
+      const todoItemHTML = `
       <li class="todo__list-item todo-item" data-js-todo-item data-todo-id="${id}">
         <div class="todo-item__content">
           <label class="visually-hidden" for="todo-${id}">Mark todo as completed</label>
@@ -291,11 +253,14 @@ class Todo {
       </li>
     `
 
-    this.todoListElement.insertAdjacentHTML('afterbegin', todoItemHTML)
+      this.todoListElement.insertAdjacentHTML('afterbegin', todoItemHTML)
+    })
   }
 
   renderActiveTodosCount = () => {
-    this.activeTodosCountElement.textContent = todoStore.getActiveTodos().length
+    this.activeTodosCountElement.textContent = todoStore.getFilteredTodos(
+      FILTER_TYPES.active
+    ).length
   }
 
   renderEmptyState = (filterType) => {
@@ -313,7 +278,40 @@ class Todo {
       </div>
     `
 
+    this.todoListElement.replaceChildren()
     this.todoListElement.insertAdjacentHTML('beforeend', emptyStateHTML)
+  }
+
+  filterTodos = (filterType) => {
+    let filteredTodos
+
+    switch (filterType) {
+      case FILTER_TYPES.all:
+        filteredTodos = todoStore.todos
+        break
+      case FILTER_TYPES.active:
+        filteredTodos = todoStore.getFilteredTodos(filterType)
+        break
+      case FILTER_TYPES.completed:
+        filteredTodos = todoStore.getFilteredTodos(filterType)
+        break
+    }
+
+    return filteredTodos
+  }
+
+  updateUI = () => {
+    this.renderActiveTodosCount()
+    const filterType = this.stateFilters.activeFilterType
+    const isEmptyAll = todoStore.todos.length === 0
+
+    if (isEmptyAll) {
+      return this.renderEmptyState(filterType)
+    }
+
+    const todos = this.filterTodos(filterType)
+
+    this.renderTodos(todos)
   }
 }
 
