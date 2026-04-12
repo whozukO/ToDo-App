@@ -295,16 +295,16 @@ class Todo {
 
   renderEmptyState = (filterType) => {
     const emptyStateHTML = `
-      <div class="todo__empty-error empty-error">
+      <div class="todo__empty-state empty-state">
         <img
-          class="empty-error__image"
-          src="./src/assets/images/empty-error-image.png"
+          class="empty-state__image"
+          src="./src/assets/images/empty-state-image.png"
           alt="Man taking a selfie"
           width="340"
           height="479"
           loading="lazy"
         />
-        <h2 class="empty-error__title">${EMPTY_STATE[filterType].title}</h2>
+        <h2 class="empty-state__title">${EMPTY_STATE[filterType].title}</h2>
       </div>
     `
 
