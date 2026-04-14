@@ -30,8 +30,6 @@ class TodoStore {
   }
 
   getTodo = () => {
-    // Разобрать кейс, когда юзер в ручную меняет ЛС
-    // Прокинуть это все через try/catch
     return JSON.parse(localStorage.getItem(STORAGE_KEYS.todos)) ?? []
   }
 

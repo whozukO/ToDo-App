@@ -87,9 +87,9 @@ class Todo {
 
   handleToggleTodoStatus = (event) => {
     const checkboxElement = event.target
+    const isChecked = checkboxElement.checked
     const todoItemElement = checkboxElement.closest(this.selectors.todoItem)
     const todoId = todoItemElement.getAttribute(ATTRIBUTES.todoId)
-    const isChecked = checkboxElement.checked
 
     todoStore.setTodoStatus(todoId, isChecked)
 
@@ -131,7 +131,6 @@ class Todo {
 
     todoItemInputElement.addEventListener('change', handleTitleChange)
     todoItemInputElement.addEventListener('blur', handleBlur)
-
     todoItemInputElement.readOnly = false
     todoItemInputElement.focus()
     todoItemInputElement.setSelectionRange(todoLength, todoLength)
