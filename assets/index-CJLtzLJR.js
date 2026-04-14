@@ -94,7 +94,6 @@
           alt="Man taking a selfie"
           width="340"
           height="479"
-          loading="lazy"
         />
         <h2 class="empty-state__title">${T[t].title}</h2>
       </div>
