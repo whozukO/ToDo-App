@@ -6,7 +6,7 @@ const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 
 export default defineConfig({
-  base: '/Todo-App/',
+  base: '/ToDo-App/',
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
