@@ -267,7 +267,7 @@ class Todo {
       <div class="todo__empty-state empty-state">
         <img
           class="empty-state__image"
-          src="./src/assets/images/empty-state-image.png"
+          src="/empty-state-image.png"
           alt="Man taking a selfie"
           width="340"
           height="479"
