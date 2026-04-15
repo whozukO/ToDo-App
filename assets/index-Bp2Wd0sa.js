@@ -97,4 +97,4 @@
         />
         <h2 class="empty-state__title">${T[t].title}</h2>
       </div>
-    `;this.todoListElement.replaceChildren(),this.todoListElement.insertAdjacentHTML("beforeend",o)};filterTodos=t=>{let o;switch(t){case l.all:o=d.todos;break;case l.active:o=d.getFilteredTodos(t);break;case l.completed:o=d.getFilteredTodos(t);break}return o};updateUI=()=>{this.renderActiveTodosCount();const t=this.stateFilters.activeFilterType;if(d.todos.length===0)return this.renderEmptyState(t);const s=this.filterTodos(t);this.renderTodos(s)}}new g;new f;
+    `;this.todoListElement.replaceChildren(),this.todoListElement.insertAdjacentHTML("beforeend",o)};filterTodos=t=>{let o;switch(t){case l.all:o=d.todos;break;case l.active:o=d.getFilteredTodos(t);break;case l.completed:o=d.getFilteredTodos(t);break}return o};updateUI=()=>{this.renderActiveTodosCount();const t=this.stateFilters.activeFilterType;if(d.todos.length===0)return this.renderEmptyState(t);const s=this.filterTodos(t);if(t===l.completed&&s.length===0)return this.renderEmptyState(t);this.renderTodos(s)}}new g;new f;
