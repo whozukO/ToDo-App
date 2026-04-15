@@ -310,6 +310,12 @@ class Todo {
 
     const todos = this.filterTodos(filterType)
 
+    const isEmptyCompleted = filterType === FILTER_TYPES.completed && todos.length === 0
+
+    if (isEmptyCompleted) {
+      return this.renderEmptyState(filterType)
+    }
+
     this.renderTodos(todos)
   }
 }
